@@ -1,8 +1,11 @@
-FROM phusion/baseimage
+FROM ubuntu:14.04
 MAINTAINER Sven Stam <sven@legalthings.io>
 
 # Install base packages
 RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    LANG=C.UTF-8 add-apt-repository ppa:ondrej/php5-5.6 && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -yq install \
         curl \
         apache2 \
