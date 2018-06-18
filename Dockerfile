@@ -37,3 +37,7 @@ RUN pecl install libsodium-1.0.6 && \
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 ADD sample/ /app
 ADD php.ini /usr/local/etc/php/php.ini
+
+# Set Dynamic memory limit
+ENV phpmemory_limit=128M
+RUN sed -i 's/memory_limit = .*/memory_limit = ${phpmemory_limit}/' /usr/local/etc/php/php.ini
