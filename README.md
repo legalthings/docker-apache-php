@@ -9,7 +9,7 @@ Building the base image
 
 To create the base image `legalthings/apache-php`, execute the following command on the tutum-docker-php folder:
 
-    docker build -t legalthings/apache-php .
+    docker build -t legalthings/apache-php:<version> -f <version>/Dockerfile .
 
 Loading your custom PHP application
 -----------------------------------
