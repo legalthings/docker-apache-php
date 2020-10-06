@@ -21,7 +21,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl gettext zip bcmath
 
-RUN a2enmod rewrite
 RUN pecl install mongodb && pecl install base58-0.1.3 && pecl install yaml && docker-php-ext-enable mongodb base58 yaml
 
 RUN apt-get install -y libsodium-dev
@@ -29,6 +28,11 @@ RUN apt-get install -y libsodium-dev
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 ADD sample/ /app
 ADD php.ini /usr/local/etc/php/php.ini
+
+RUN a2enmod rewrite
+RUN a2enmod headers
+ADD https_redirect.conf /etc/apache2/conf-available/
+RUN a2enconf https_redirect
 
 # Set dynamic memory limit
 ENV phpmemory_limit=128M
